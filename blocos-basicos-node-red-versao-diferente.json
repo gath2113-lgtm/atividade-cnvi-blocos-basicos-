@@ -1,0 +1,519 @@
+[
+  {
+    "id": "b10c0000000000a0",
+    "type": "tab",
+    "label": "Blocos básicos",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "type": "inject",
+    "name": "function: numero 9",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "9",
+    "payloadType": "num",
+    "id": "b10c000000000001",
+    "z": "b10c0000000000a0",
+    "x": 170,
+    "y": 60,
+    "wires": [
+      [
+        "b10c000000000002"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "dobro e par",
+    "func": "const n = msg.payload;\nmsg.payload = {\n    numero: n,\n    resultado: n * 2,\n    ehPar: n % 2 === 0\n};\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "b10c000000000002",
+    "z": "b10c0000000000a0",
+    "x": 400,
+    "y": 60,
+    "wires": [
+      [
+        "b10c000000000003"
+      ]
+    ]
+  },
+  {
+    "type": "debug",
+    "name": "1 - resultado do function",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "id": "b10c000000000003",
+    "z": "b10c0000000000a0",
+    "x": 650,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "type": "inject",
+    "name": "change: cadastro do aluno",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"nome\":\"Carlos\",\"idade\":21}",
+    "payloadType": "json",
+    "id": "b10c000000000004",
+    "z": "b10c0000000000a0",
+    "x": 190,
+    "y": 160,
+    "wires": [
+      [
+        "b10c000000000005"
+      ]
+    ]
+  },
+  {
+    "type": "change",
+    "name": "editar propriedades",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "cadastro",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "payload.status",
+        "pt": "msg",
+        "to": "ativo",
+        "tot": "str"
+      },
+      {
+        "t": "delete",
+        "p": "payload.idade",
+        "pt": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "id": "b10c000000000005",
+    "z": "b10c0000000000a0",
+    "x": 420,
+    "y": 160,
+    "wires": [
+      [
+        "b10c000000000006"
+      ]
+    ]
+  },
+  {
+    "type": "debug",
+    "name": "2 - resultado do change",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "id": "b10c000000000006",
+    "z": "b10c0000000000a0",
+    "x": 660,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "type": "inject",
+    "name": "switch: 35 graus (alerta)",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"sensor\":\"sala-02\",\"temperatura\":35}",
+    "payloadType": "json",
+    "id": "b10c000000000007",
+    "z": "b10c0000000000a0",
+    "x": 200,
+    "y": 270,
+    "wires": [
+      [
+        "b10c000000000009"
+      ]
+    ]
+  },
+  {
+    "type": "inject",
+    "name": "switch: 25 graus (normal)",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"sensor\":\"sala-02\",\"temperatura\":25}",
+    "payloadType": "json",
+    "id": "b10c000000000008",
+    "z": "b10c0000000000a0",
+    "x": 200,
+    "y": 330,
+    "wires": [
+      [
+        "b10c000000000009"
+      ]
+    ]
+  },
+  {
+    "type": "switch",
+    "name": "temperatura >= 30?",
+    "property": "payload.temperatura",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "gte",
+        "v": "30",
+        "vt": "num"
+      },
+      {
+        "t": "else"
+      }
+    ],
+    "checkall": "false",
+    "repair": false,
+    "outputs": 2,
+    "id": "b10c000000000009",
+    "z": "b10c0000000000a0",
+    "x": 450,
+    "y": 300,
+    "wires": [
+      [
+        "b10c00000000000a"
+      ],
+      [
+        "b10c00000000000b"
+      ]
+    ]
+  },
+  {
+    "type": "debug",
+    "name": "3 - saida 1: ALERTA DE TEMPERATURA",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "id": "b10c00000000000a",
+    "z": "b10c0000000000a0",
+    "x": 690,
+    "y": 270,
+    "wires": []
+  },
+  {
+    "type": "debug",
+    "name": "3 - saida 2: TEMPERATURA NORMAL",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "id": "b10c00000000000b",
+    "z": "b10c0000000000a0",
+    "x": 690,
+    "y": 330,
+    "wires": []
+  },
+  {
+    "type": "inject",
+    "name": "template: nota do Carlos",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "{\"nome\":\"Carlos\",\"nota\":8.7}",
+    "payloadType": "json",
+    "id": "b10c00000000000c",
+    "z": "b10c0000000000a0",
+    "x": 180,
+    "y": 440,
+    "wires": [
+      [
+        "b10c00000000000d"
+      ]
+    ]
+  },
+  {
+    "type": "template",
+    "name": "frase",
+    "field": "payload",
+    "fieldType": "msg",
+    "format": "handlebars",
+    "syntax": "mustache",
+    "template": "O(a) aluno(a) {{payload.nome}} obteve nota {{payload.nota}}.",
+    "output": "str",
+    "id": "b10c00000000000d",
+    "z": "b10c0000000000a0",
+    "x": 410,
+    "y": 440,
+    "wires": [
+      [
+        "b10c00000000000e"
+      ]
+    ]
+  },
+  {
+    "type": "debug",
+    "name": "4 - resultado do template",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "id": "b10c00000000000e",
+    "z": "b10c0000000000a0",
+    "x": 650,
+    "y": 440,
+    "wires": []
+  },
+  {
+    "type": "inject",
+    "name": "split/join: lista de alunos",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "[\"diego\",\"erica\",\"felipe\"]",
+    "payloadType": "json",
+    "id": "b10c00000000000f",
+    "z": "b10c0000000000a0",
+    "x": 190,
+    "y": 540,
+    "wires": [
+      [
+        "b10c000000000010"
+      ]
+    ]
+  },
+  {
+    "type": "split",
+    "name": "",
+    "splt": "\\n",
+    "spltType": "str",
+    "arraySplt": 1,
+    "arraySpltType": "len",
+    "stream": false,
+    "addname": "",
+    "id": "b10c000000000010",
+    "z": "b10c0000000000a0",
+    "x": 380,
+    "y": 540,
+    "wires": [
+      [
+        "b10c000000000011"
+      ]
+    ]
+  },
+  {
+    "type": "function",
+    "name": "converter para maiusculas",
+    "func": "msg.payload = msg.payload.toUpperCase();\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "id": "b10c000000000011",
+    "z": "b10c0000000000a0",
+    "x": 540,
+    "y": 540,
+    "wires": [
+      [
+        "b10c000000000012"
+      ]
+    ]
+  },
+  {
+    "type": "join",
+    "name": "",
+    "mode": "auto",
+    "build": "string",
+    "property": "payload",
+    "propertyType": "msg",
+    "key": "topic",
+    "joiner": "\\n",
+    "joinerType": "str",
+    "accumulate": false,
+    "timeout": "",
+    "count": "",
+    "reduce": false,
+    "reduceRight": false,
+    "reduceExp": "",
+    "reduceInit": "",
+    "reduceInitType": "",
+    "reduceFixup": "",
+    "id": "b10c000000000012",
+    "z": "b10c0000000000a0",
+    "x": 700,
+    "y": 540,
+    "wires": [
+      [
+        "b10c000000000013"
+      ]
+    ]
+  },
+  {
+    "type": "debug",
+    "name": "5 - lista processada",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "id": "b10c000000000013",
+    "z": "b10c0000000000a0",
+    "x": 900,
+    "y": 540,
+    "wires": []
+  },
+  {
+    "type": "inject",
+    "name": "delay: aguarda 2 s",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "processando",
+    "payloadType": "str",
+    "id": "b10c000000000014",
+    "z": "b10c0000000000a0",
+    "x": 180,
+    "y": 640,
+    "wires": [
+      [
+        "b10c000000000015"
+      ]
+    ]
+  },
+  {
+    "type": "delay",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "2",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "allowrate": false,
+    "outputs": 1,
+    "id": "b10c000000000015",
+    "z": "b10c0000000000a0",
+    "x": 400,
+    "y": 640,
+    "wires": [
+      [
+        "b10c000000000016"
+      ]
+    ]
+  },
+  {
+    "type": "debug",
+    "name": "6 - chegou após 2 s",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "id": "b10c000000000016",
+    "z": "b10c0000000000a0",
+    "x": 650,
+    "y": 640,
+    "wires": []
+  }
+]
