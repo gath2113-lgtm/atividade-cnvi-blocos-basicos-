@@ -1,1 +1,0 @@
-# atividade-cnvi-blocos-basicos-
